@@ -1,0 +1,26 @@
+```{r echo = FALSE}}
+library(dplyr)
+library(tidyquant)
+library(reactable)
+library(lubridate)
+```
+
+
+### initial parameters
+```{r echo = FALSE}
+start_cash <- 50000
+starting_year <- Sys.Date() - years(5)
+end_year <- Sys.Date()
+index_and_commodities <- c("SPY", "KWEB","GOLD", "BTC-USD")
+```
+
+### collecting the data
+```{r}
+for(equities in index_and_commodities){
+  equities_dataframe <- tidyquant::tq_get(equities, from = starting_year, to = end_year)
+  file_path <- paste0("Data/",equities, ".rds")
+  saveRDS(equities_dataframe, file = file_path)
+}
+```
+
+### plots
